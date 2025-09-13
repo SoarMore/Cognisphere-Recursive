@@ -1,0 +1,16 @@
+# Model files
+models/*.gguf
+
+# llama.cpp binaries
+llama.cpp/build/
+llama.cpp/main
+
+# PyInstaller output
+dist/
+build/
+*.spec
+
+# OS junk
+__pycache__/
+*.pyc
+.DS_Store
