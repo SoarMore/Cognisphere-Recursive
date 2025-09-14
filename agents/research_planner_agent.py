@@ -1,16 +1,13 @@
-from .base_agent import BaseAgent
+from agents.base_agent import BaseAgent
 
 class ResearchPlannerAgent(BaseAgent):
     def __init__(self):
-        super().__init__("Research Planner Agent")
+        super().__init__(name="ResearchPlannerAgent")
 
-    def plan(self, query: str) -> str:
-        prompt = f"""
-You are a research planner agent. Your job is to break down complex research queries into structured sub-questions or source directives. Focus on clarity, relevance, and technical depth.
+    def plan_research(self, task: str) -> str:
+        prompt = f"""Outline what information needs to be collected for this task:
 
-Here is the query:
-{query}
+Task: {task}
 
-Return a numbered list of sub-questions or directives that will guide the research process.
-"""
+Respond with a list of research questions or topics."""
         return self.run(prompt)

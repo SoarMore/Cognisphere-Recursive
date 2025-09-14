@@ -1,52 +1,36 @@
-from .research_planner_agent import ResearchPlannerAgent
-from .web_search_agent import WebSearchAgent
-from .summarizer_agent import SummarizerAgent
-from .evaluator_agent import EvaluatorAgent
-from .meta_agent import MetaAgent
-from .output_synthesizer import OutputSynthesizer
-from .loop_controller import run_recursive
+from agents.research_planner_agent import ResearchPlannerAgent
+from agents.research_agent import ResearchAgent
+from agents.summarizer_agent import SummarizerAgent
+from agents.evaluator_agent import EvaluatorAgent
+from agents.meta_agent import MetaAgent
+from agents.output_synthesizer import OutputSynthesizer
 
 class ResearchManager:
     def __init__(self):
-        self.planner = ResearchPlannerAgent()
-        self.web = WebSearchAgent()
+        self.research_planner = ResearchPlannerAgent()
+        self.research_agent = ResearchAgent()
         self.summarizer = SummarizerAgent()
         self.evaluator = EvaluatorAgent()
-        self.meta = MetaAgent()
-        self.synthesizer = OutputSynthesizer()
+        self.meta_agent = MetaAgent()
+        self.output_synthesizer = OutputSynthesizer()
 
-    def handle_query(self, query: str) -> dict:
-        # Step 1: Plan the research query
-        plan = self.planner.plan(query)
+    def run(self, query: str) -> dict:
+        print(f"🔍 ResearchManager received query: {query}")
 
-        # Step 2: Define recursive loop
-        def loop_fn(current_plan, history):
-            # Web search
-            raw = self.web.search(current_plan)
-
-            # Summarize
-            summary = self.summarizer.summarize(raw)
-
-            # Evaluate
-            critique = self.evaluator.evaluate(summary)
-
-            # Reflect
-            reflection = self.meta.reflect(
-                f"Query:\n{current_plan}\n\nSummary:\n{summary}\n\nCritique:\n{critique}"
-            )
-
-            return reflection
-
-        # Step 3: Run recursive loop with max 5 iterations
-        final_context = run_recursive(loop_fn, plan, max_loops=5)
-
-        # Step 4: Synthesize final output
-        final_output = self.synthesizer.synthesize([final_context])
+        research_plan = self.research_planner.plan_research(query)
+        research = self.research_agent.collect_research(research_plan)
+        summary = self.summarizer.summarize(research)
+        critique = self.evaluator.critique(summary)
+        reflection = self.meta_agent.reflect(critique, summary)
+        final_output = self.output_synthesizer.synthesize(reflection)
 
         return {
-            "background": plan,
-            "summary": final_context,
-            "critique": "See reflection",
-            "reflection": final_context,
-            "final": final_output
+            "📚 Raw Research": research,
+            "📝 Summary": summary,
+            "🔍 Critique": critique,
+            "🧭 Reflection": reflection,
+            "🎯 Final Output": final_output
         }
+
+    def handle_query(self, query: str) -> dict:
+        return self.run(query)

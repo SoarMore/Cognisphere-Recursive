@@ -1,12 +1,13 @@
-from .base_agent import BaseAgent
-from utils.prompt_formatter import format_prompt
-from utils.truncate import truncate
+from agents.base_agent import BaseAgent
 
 class EvaluatorAgent(BaseAgent):
     def __init__(self):
-        super().__init__("Evaluator Agent")
+        super().__init__(name="EvaluatorAgent")
 
-    def evaluate(self, summary: str) -> str:  # ← renamed from critique
-        summary = truncate(summary)
-        prompt = format_prompt("evaluator", "Critique the summary and suggest improvements", summary)
+    def critique(self, summary: str) -> str:
+        prompt = f"""Critique the following summary for clarity, completeness, and relevance:
+
+{summary}
+
+Respond with strengths, weaknesses, and suggestions."""
         return self.run(prompt)

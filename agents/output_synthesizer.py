@@ -1,14 +1,11 @@
-from .base_agent import BaseAgent
+from agents.base_agent import BaseAgent
 
 class OutputSynthesizer(BaseAgent):
     def __init__(self):
-        super().__init__("Output Synthesizer")
+        super().__init__(name="OutputSynthesizer")
 
-    def synthesize(self, components: list[str]) -> str:
-        joined = "\n\n".join(components)
-        prompt = f"""
-You are an output synthesizer agent. Merge the following components into a coherent final output that summarizes the task, plan, and insights.
+    def synthesize(self, reflection: str) -> str:
+        prompt = f"""Generate a final output based on the reflection below. Make it clear, actionable, and user-ready.
 
-{joined}
-"""
+{reflection}"""
         return self.run(prompt)

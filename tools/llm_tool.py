@@ -1,35 +1,31 @@
-from llama_cpp import Llama
+import requests
+import json
 
 class LLMTool:
-    def __init__(self):
-        # Load the Phi-2 GGUF model
-        self.llm = Llama(
-            model_path="models/phi-2.Q4_K_M.gguf",  # Adjust path if needed
-            n_ctx=2048,
-            n_threads=6,
-            n_batch=512,
-            n_gpu_layers=35
-        )
+    def __init__(self, model="phi3:3.8b"):
+        self.model = model
+        self.endpoint = "http://127.0.0.1:11435/api/generate"
 
     def run(self, prompt: str, max_tokens: int = 300) -> str:
         try:
-            output = self.llm(prompt, max_tokens=max_tokens)
+            response = requests.post(self.endpoint, json={
+                "model": self.model,
+                "prompt": prompt,
+                "options": {
+                    "temperature": 0.7,
+                    "top_p": 0.9,
+                    "max_tokens": max_tokens
+                }
+            }, stream=True)
 
-            # Handle dictionary output (newer versions)
-            if isinstance(output, dict):
-                if "choices" in output and len(output["choices"]) > 0:
-                    return output["choices"][0]["text"].strip()
-                elif "text" in output:
-                    return output["text"].strip()
-                else:
-                    return str(output)
-
-            # Handle string output (older versions)
-            elif isinstance(output, str):
-                return output.strip()
-
-            # Fallback for unexpected types
-            return str(output)
-
+            output = ""
+            for line in response.iter_lines():
+                if line:
+                    try:
+                        chunk = json.loads(line.decode("utf-8"))
+                        output += chunk.get("response", "")
+                    except Exception as e:
+                        print(f"⚠️ Chunk parse error: {e}")
+            return output.strip() if output else "⚠️ No streamed response from Ollama"
         except Exception as e:
-            return f"⚠️ LLMTool Error: {str(e)}"
+            return f"⚠️ Ollama Error: {str(e)}"
