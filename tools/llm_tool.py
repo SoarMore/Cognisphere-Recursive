@@ -4,7 +4,7 @@ import json
 class LLMTool:
     def __init__(self, model="phi3:3.8b"):
         self.model = model
-        self.endpoint = "http://127.0.0.1:11435/api/generate"
+        self.endpoint = "http://127.0.0.1:11434/api/generate"
 
     def run(self, prompt: str, max_tokens: int = 300) -> str:
         try:
