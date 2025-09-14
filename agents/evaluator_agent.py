@@ -1,5 +1,14 @@
-from agents.base_agent import BaseAgent
+from .base_agent import BaseAgent
 
 class EvaluatorAgent(BaseAgent):
-    def score(self, context):
-        return {"quality": 0.85, "feedback": "Good structure"}
+    def __init__(self):
+        super().__init__("Evaluator Agent")
+
+    def evaluate(self, summary: str) -> str:
+        prompt = f"""
+You are an evaluator agent. Critique the following summary for clarity, completeness, and technical accuracy. Suggest improvements if needed.
+
+Summary:
+{summary}
+"""
+        return self.run(prompt)

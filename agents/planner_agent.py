@@ -1,11 +1,13 @@
-from agents.base_agent import BaseAgent
+from .base_agent import BaseAgent
 
 class PlannerAgent(BaseAgent):
-    def run(self, task):
-        # Mock decomposition
-        return [
-            "Research existing policies",
-            "Summarize NGO strategies",
-            "Propose sterilization model",
-            "Suggest public awareness campaign"
-        ]
+    def __init__(self):
+        super().__init__("Planner Agent")
+
+    def plan(self, task: str) -> str:
+        prompt = f"""
+You are a planning agent. Break down the following task into clear, actionable subtasks. Focus on implementation steps, libraries, and offline architecture.
+
+{task}
+"""
+        return self.run(prompt)

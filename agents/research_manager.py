@@ -1,43 +1,37 @@
-from .planner_agent import PlannerAgent
+from .research_agent import ResearchAgent
 from .summarizer_agent import SummarizerAgent
 from .evaluator_agent import EvaluatorAgent
 from .meta_agent import MetaAgent
 from .output_synthesizer import OutputSynthesizer
-from .research_agent import ResearchAgent
 
-class TaskManagerAgent:
+class ResearchManager:
     def __init__(self):
         self.researcher = ResearchAgent()
-        self.planner = PlannerAgent()
         self.summarizer = SummarizerAgent()
         self.evaluator = EvaluatorAgent()
         self.meta = MetaAgent()
         self.synthesizer = OutputSynthesizer()
 
-    def handle_task(self, task: str) -> dict:
+    def handle_query(self, query: str) -> dict:
         # Step 1: Research
-        background = self.researcher.research(task)
+        background = self.researcher.research(query)
 
-        # Step 2: Planning
-        subtasks = self.planner.plan(f"{task}\n\nBackground:\n{background}")
-
-        # Step 3: Summarization (of background for now)
+        # Step 2: Summarize
         summary = self.summarizer.summarize(background)
 
-        # Step 4: Evaluation
+        # Step 3: Evaluate
         critique = self.evaluator.evaluate(summary)
 
-        # Step 5: Meta Reflection
+        # Step 4: Reflect
         reflection = self.meta.reflect(
-            f"Task:\n{task}\n\nBackground:\n{background}\n\nSubtasks:\n{subtasks}\n\nSummary:\n{summary}"
+            f"Query:\n{query}\n\nBackground:\n{background}\n\nSummary:\n{summary}\n\nCritique:\n{critique}"
         )
 
-        # Step 6: Synthesis
+        # Step 5: Synthesize
         final_output = self.synthesizer.synthesize([summary, critique, reflection])
 
         return {
             "background": background,
-            "subtasks": subtasks,
             "summary": summary,
             "critique": critique,
             "reflection": reflection,

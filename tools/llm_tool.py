@@ -5,5 +5,6 @@ class LLMTool:
         self.llm = Llama(model_path=model_path)
 
     def run(self, prompt: str) -> str:
-        output = self.llm(prompt)
-        return output["choices"][0]["text"].strip()
+     output = self.llm(prompt)
+     return output["choices"][0]["text"].strip()
+
