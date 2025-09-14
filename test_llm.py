@@ -1,8 +1,17 @@
-from tools.llm_tool import LLMTool
+import sys
+import os
+import sys
+import os
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, ROOT_DIR)
 
-llm = LLMTool(model_path="models/mistral-7b-instruct-v0.2.Q4_K_M.gguf")
 
-prompt = "hello how are you."
-response = llm.run(prompt)
 
-print("LLM response:", response)
+from core.recursive_loop import run_recursive
+
+
+query = "How to write an essay step by step thinking process"
+result = run_recursive(query)
+
+for key, value in result.items():
+    print(f"\n🔹 {key.upper()}:\n{value}")
