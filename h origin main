@@ -1,0 +1,53 @@
+[33mcommit 473149822df5606587a5c3c7dc37b2b9ea6efe21[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sun Sep 14 12:15:05 2025 +0530
+
+    Fixed incompatability
+
+[33mcommit e61313f922ebb9a1adcfda58c1e79151e4b235b6[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sun Sep 14 07:42:59 2025 +0530
+
+    Agents changed from prompt to real
+
+[33mcommit 9ae8a552aacb0cb8ad5de5fa45a52bfe71532ec7[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sun Sep 14 06:20:17 2025 +0530
+
+    added llm model
+
+[33mcommit 4b18bafce7b4c687d69fe6b2515e73c4e4ac4190[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 22:40:03 2025 +0530
+
+    Removed llama.cpp
+
+[33mcommit cd0e67bbdef5f3632c8b3bf21616c0e4732f6b8d[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 21:06:42 2025 +0530
+
+    Added llama.cpp
+
+[33mcommit 98bf78da23129eafa6c044197ee4fea419da77cd[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 20:51:43 2025 +0530
+
+    Mock Complete
+
+[33mcommit cf291dbccf577c7a8b44e7fce3d863b12e687c92[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 14:37:44 2025 +0530
+
+    Agents Updated
+
+[33mcommit 586593b20b6c77c8063ed9f12232db403458b304[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 14:25:59 2025 +0530
+
+    Requirements Added
+
+[33mcommit 23cfa5ff2e7ce92733e67d1d78a82603f699128e[m
+Author: SoarMore <vishakhsanthpal@gmail.com>
+Date:   Sat Sep 13 14:20:38 2025 +0530
+
+    Project Structure
