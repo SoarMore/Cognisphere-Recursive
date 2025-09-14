@@ -5,13 +5,14 @@ class WebSearchAgent(BaseAgent):
         super().__init__("Web Search Agent")
 
     def search(self, query: str) -> str:
-        # Simulated search results for testing
-        if "essay" in query.lower():
-            return (
-                "1. Define the type of essay (e.g., argumentative, narrative).\n"
-                "2. Brainstorm ideas and outline your structure.\n"
-                "3. Write a clear thesis statement.\n"
-                "4. Develop body paragraphs with supporting evidence.\n"
-                "5. Conclude by summarizing your argument and reflecting."
-            )
-        return "No relevant results found."
+        results = [
+            "Define the essay topic.",
+            "Choose the essay format (persuasive, expository, etc.).",
+            "Determine the required length.",
+            "Craft a thesis statement.",
+            "Outline the structure and main points.",
+            "Write the introduction, body, and conclusion.",
+            "Revise and proofread the essay."
+        ]
+        # Deduplicate and join
+        return "\n".join(list(dict.fromkeys(results)))

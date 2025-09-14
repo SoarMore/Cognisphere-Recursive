@@ -7,7 +7,8 @@ class LLMTool:
             model_path="models/phi-2.Q4_K_M.gguf",  # Adjust path if needed
             n_ctx=2048,
             n_threads=6,
-            n_batch=1
+            n_batch=512,
+            n_gpu_layers=35
         )
 
     def run(self, prompt: str, max_tokens: int = 300) -> str:
